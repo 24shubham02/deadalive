@@ -12,3 +12,18 @@ It's designed for penetration testers and bug bounty hunters to streamline recon
 - Install `httpx`: 
   ```bash
   go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+
+## Installation
+Clone this repository and make the script executable:
+```bash
+git clone https://github.com/24shubham02/deadalive.git
+cd deadalive
+chmod +x deadalive
+
+## Example Usage
+./deadalive
+
+## Input File Example
+sub1.example.com
+sub2.example.com
+sub3.example.com
