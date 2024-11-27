@@ -1,0 +1,35 @@
+#!/bin/bash
+
+echo "Welcome to DeadAlive!"
+
+# Prompt for input file
+read -p "Enter the path to your subdomains file: " input_file
+
+# Check if the file exists
+if [[ ! -f "$input_file" ]]; then
+    echo "Error: File not found!"
+    exit 1
+fi
+
+# Output file paths
+live_file="live_subdomains.txt"
+dead_file="dead_subdomains.txt"
+
+# Clear previous output files if they exist
+> "$live_file"
+> "$dead_file"
+
+echo "Processing subdomains from $input_file..."
+
+# Loop through each subdomain and check if it's alive
+while read -r subdomain; do
+    if httpx -silent -no-color -l <(echo "$subdomain") > /dev/null; then
+        echo "$subdomain" >> "$live_file"
+    else
+        echo "$subdomain" >> "$dead_file"
+    fi
+done < "$input_file"
+
+echo "Done!"
+echo "Live subdomains saved to: $live_file"
+echo "Dead subdomains saved to: $dead_file"
